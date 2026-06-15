@@ -14,7 +14,7 @@ let package = Package(
             targets: ["CustomKeyboardKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/siteline/swiftui-introspect", "26.0.0"..<"100.0.0")
+        .package(url: "https://github.com/siteline/swiftui-introspect", "26.0.0"..<"100.0.0-beta")
     ],
     targets: [
         .target(
