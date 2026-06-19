@@ -11,7 +11,15 @@ import UIKit
 
 public class KeyboardInputView: UIView, UIInputViewAudioFeedback {
     var keyboardUIView: UIView
-    
+
+    // Retain the SwiftUI host controller for the lifetime of this input view. UIKit keeps the
+    // input view alive while it is presented, but only retains the host's `.view` (keyboardUIView),
+    // not the host controller itself. Once the transient CustomKeyboard is released the host would
+    // deallocate, leaving an orphaned hosting view; iOS 26.0/26.0.1 trait propagation then messages
+    // the freed host (_wrappedProcessTraitChanges crash). Holding it here ties the host's lifetime
+    // to the presented input view.
+    var keyboardViewController: UIViewController?
+
     public var enableInputClicksWhenVisible: Bool {
         true
     }

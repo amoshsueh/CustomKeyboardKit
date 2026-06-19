@@ -31,6 +31,11 @@ public class CustomKeyboard: Keyboard {
             )
         )
         keyboardView = hostingController.view
+
+        // Tie the host's lifetime to the input view UIKit retains while presented. UIKit only
+        // retains `keyboardView` (the host's `.view`), not `hostingController`; without this the
+        // host deallocates and iOS 26.0/26.0.1 trait propagation messages a freed host.
+        keyboardInputView?.keyboardViewController = hostingController
     }
     
     required init?(coder: NSCoder) {
